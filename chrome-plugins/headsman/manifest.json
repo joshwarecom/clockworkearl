@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Headsman",
   "version": "1.0",
-  "description": "Modify Request Headers (like a boss)",
+  "description": "Modify Headers (like a boss)",
   "permissions": [
     "declarativeNetRequest",
     "storage"

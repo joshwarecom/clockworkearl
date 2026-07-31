@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const addBtn = document.getElementById('addBtn');
   const saveBtn = document.getElementById('saveBtn');
   const statusDiv = document.getElementById('status');
+  const disclaimTxt = document.getElementById('disclaimTxt');
 
   let isDirty = false;
 
@@ -20,17 +21,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     isDirty = false;
     saveBtn.classList.remove('unsaved');
     saveBtn.textContent = 'Save Changes';
-    statusDiv.textContent = 'Rules saved and applied!';
+    statusDiv.textContent = 'Changes saved and applied!';
     statusDiv.style.color = '#28a745';
     setTimeout(() => { 
       if (!isDirty) statusDiv.textContent = ''; 
     }, 2500);
   }
 
-  // Helper to create a new input row
-  function createHeaderRow(name = '', value = '') {
+  // Helper to create a new input row with enable/disable checkbox
+  function createHeaderRow(name = '', value = '', enabled = true) {
     const row = document.createElement('div');
-    row.className = 'header-row';
+    row.className = `header-row ${enabled ? '' : 'disabled'}`.trim();
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = enabled;
+    checkbox.className = 'header-toggle';
+    checkbox.title = 'Enable/Disable Header';
 
     const nameInput = document.createElement('input');
     nameInput.type = 'text';
@@ -44,7 +51,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     valueInput.value = value;
     valueInput.className = 'header-value';
 
-    // Track text modifications in inputs
+    // Track state & text modifications
+    checkbox.addEventListener('change', () => {
+      row.classList.toggle('disabled', !checkbox.checked);
+      markUnsaved();
+    });
     nameInput.addEventListener('input', markUnsaved);
     valueInput.addEventListener('input', markUnsaved);
 
@@ -57,6 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       markUnsaved();
     });
 
+    row.appendChild(checkbox);
     row.appendChild(nameInput);
     row.appendChild(valueInput);
     row.appendChild(removeBtn);
@@ -69,7 +81,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (headers.length === 0) {
     container.appendChild(createHeaderRow());
   } else {
-    headers.forEach(h => container.appendChild(createHeaderRow(h.name, h.value)));
+    headers.forEach(h => {
+      // Backwards compatibility if 'enabled' was undefined in older versions
+      const isEnabled = h.enabled !== undefined ? h.enabled : true;
+      container.appendChild(createHeaderRow(h.name, h.value, isEnabled));
+    });
   }
 
   // Add new blank row when (+) is clicked
@@ -85,16 +101,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     const requestHeadersRules = [];
 
     rows.forEach(row => {
+      const isEnabled = row.querySelector('.header-toggle').checked;
       const name = row.querySelector('.header-name').value.trim();
       const value = row.querySelector('.header-value').value.trim();
 
       if (name && value) {
-        updatedHeaders.push({ name, value });
-        requestHeadersRules.push({
-          header: name,
-          operation: 'set',
-          value: value
-        });
+        // Save all rows to storage regardless of enable/disable state
+        updatedHeaders.push({ name, value, enabled: isEnabled });
+
+        // Only inject into declarativeNetRequest if explicitly enabled
+        if (isEnabled) {
+          requestHeadersRules.push({
+            header: name,
+            operation: 'set',
+            value: value
+          });
+        }
       }
     });
 

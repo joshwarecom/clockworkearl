@@ -5,7 +5,7 @@
   <style>
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      width: 340px;
+      width: 360px;
       padding: 12px;
       margin: 0;
       background-color: #f9f9fb;
@@ -24,16 +24,28 @@
       margin-bottom: 8px;
       align-items: center;
     }
-    input {
+    .header-toggle {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      margin: 0;
+      accent-color: #0066cc;
+    }
+    input[type="text"] {
       flex: 1;
       padding: 6px 8px;
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 12px;
       min-width: 0;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, opacity 0.2s;
     }
-    input:focus {
+    /* Dim inputs slightly when disabled */
+    .header-row.disabled input[type="text"] {
+      opacity: 0.5;
+      background-color: #eee;
+    }
+    input[type="text"]:focus {
       outline: none;
       border-color: #0066cc;
     }
@@ -85,7 +97,7 @@
 </head>
 <body>
   <h4>
-    <span>Modify Request Headers (like a boss)</span>
+    <span>Headsman: Modify Headers (like a boss)</span>
     <button id="addBtn" class="btn btn-add" title="Add Header">+</button>
   </h4>
 
@@ -93,7 +105,9 @@
 
   <button id="saveBtn" class="btn btn-save">Save Changes</button>
   <div id="status"></div>
-
+  <a id="disclaimTxt" style="font-size: 10px; color: #777;">
+   Disclaimer: this software is provided "as is" without warranty of any kind, express or implied. The developer assumes no liability. Use at your own risk.  But c'mon! Do you want to modify your headers (like a boss) or not???  
+  </a>
   <script src="popup.js"></script>
 </body>
 </html>
