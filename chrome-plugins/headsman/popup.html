@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      width: 340px;
+      padding: 12px;
+      margin: 0;
+      background-color: #f9f9fb;
+      color: #333;
+    }
+    h4 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+    input {
+      flex: 1;
+      padding: 6px 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 12px;
+      min-width: 0;
+      transition: border-color 0.2s;
+    }
+    input:focus {
+      outline: none;
+      border-color: #0066cc;
+    }
+    .btn {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 12px;
+      transition: background-color 0.2s;
+    }
+    .btn-add {
+      background: #28a745;
+      color: white;
+    }
+    .btn-add:hover { background: #218838; }
+    
+    .btn-remove {
+      background: #dc3545;
+      color: white;
+    }
+    .btn-remove:hover { background: #c82333; }
+
+    .btn-save {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+      background: #0066cc;
+      color: white;
+    }
+    .btn-save:hover { background: #0052a3; }
+
+    /* Highlight style when changes are pending */
+    .btn-save.unsaved {
+      background: #e67e22;
+    }
+    .btn-save.unsaved:hover {
+      background: #d35400;
+    }
+
+    #status {
+      margin-top: 8px;
+      font-size: 11px;
+      text-align: center;
+      min-height: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h4>
+    <span>Modify Request Headers (like a boss)</span>
+    <button id="addBtn" class="btn btn-add" title="Add Header">+</button>
+  </h4>
+
+  <div id="headerContainer"></div>
+
+  <button id="saveBtn" class="btn btn-save">Save Changes</button>
+  <div id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
