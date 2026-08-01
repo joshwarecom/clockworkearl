@@ -1,1 +1,1 @@
-Open source projects distributed under The Clockwork Earl brand.
+Open source projects distributed under the Clockwork Earl brand.
