@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Headsman",
+  "name": "Headsman - Modify Headers (like a boss)",
   "version": "1.0",
-  "description": "Modify Headers (like a boss)",
+  "description": "Exactly what it says on the tin.  Modify Headers (like a boss)",
   "permissions": [
     "declarativeNetRequest",
     "storage"
