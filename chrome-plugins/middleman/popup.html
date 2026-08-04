@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 440px;
+      padding: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      color: #333333;
+      box-sizing: border-box;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    h3 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+      color: #212529;
+      letter-spacing: -0.2px;
+    }
+
+    /* Green Add Button */
+    .btn-add {
+      background: #198754;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      width: 28px;
+      height: 28px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background-color 0.15s ease;
+    }
+    .btn-add:hover {
+      background: #157347;
+    }
+
+    /* Rule Container & Rows */
+    #ruleContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .rule-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Checkbox */
+    .rule-checkbox {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      cursor: pointer;
+      accent-color: #0d6efd;
+    }
+
+    /* Inputs */
+    input[type="text"], input[type="number"] {
+      flex: 1;
+      padding: 5px 8px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #495057;
+      background-color: #f1f3f5;
+      outline: none;
+      box-sizing: border-box;
+      transition: all 0.15s ease;
+    }
+    input[type="text"]:focus, input[type="number"]:focus {
+      background-color: #ffffff;
+      border-color: #86b7fe;
+      box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.2);
+    }
+    input[type="text"]::placeholder, input[type="number"]::placeholder {
+      color: #adb5bd;
+    }
+
+    /* Greyed out state when unselected */
+    .rule-row.disabled input[type="text"] {
+      opacity: 0.5;
+      background-color: #e9ecef;
+      border-color: #dee2e6;
+      color: #6c757d;
+      pointer-events: none;
+    }
+
+    /* Red Remove Button */
+    .btn-remove {
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      width: 26px;
+      height: 28px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: background-color 0.15s ease;
+    }
+    .btn-remove:hover {
+      background: #bb2d3b;
+    }
+
+    /* Port Setting Control & Inline Proxy Status */
+    .port-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .port-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #495057;
+      white-space: nowrap;
+    }
+    #proxyPortInput {
+      width: 80px;
+      flex: none;
+    }
+
+    /* Inline Proxy Status next to Port Input */
+    #proxyStatus {
+      font-size: 11px;
+      font-weight: 600;
+      text-align: left;
+      white-space: pre-line;
+    }
+
+    /* Full-Width Save Button (Default Blue / Unsaved Orange) */
+    .btn-save {
+      width: 100%;
+      background: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+    .btn-save:hover {
+      background: #0b5ed7;
+    }
+    .btn-save.unsaved {
+      background: #fd7e14;
+    }
+    .btn-save.unsaved:hover {
+      background: #e36a00;
+    }
+
+    /* General Status Message (Bottom) */
+    #status {
+      margin-top: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      min-height: 14px;
+      text-align: center;
+    }
+
+    /* Disclaimer Text */
+    .disclaimer {
+      margin-top: 12px;
+      font-size: 10.5px;
+      color: #888888;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h3>Middleman - Spoof Host IPs (like a boss)</h3>
+    <button id="addBtn" class="btn-add" title="Add Row">+</button>
+  </div>
+  <div class="port-container">
+    <span class="port-label">Proxy Port:</span>
+    <input type="number" id="proxyPortInput" placeholder="8080" min="1" max="65535" value="8080" />
+    <div id="proxyStatus"></div>
+  </div>
+
+
+  <div id="ruleContainer"></div>
+
+  <button id="saveBtn" class="btn-save">Save Changes</button>
+
+  <div id="status"></div>
+
+  <div class="disclaimer">
+    Disclaimer: this software is provided "as is" without warranty of any kind, express or implied. The developer assumes no liability. Use at your own risk. But c'mon! Do you want to modify your headers (like a boss) or not???
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
