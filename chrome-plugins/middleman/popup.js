@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const conditions = activeRules.map(rule => {
       const cleanHost = rule.host.replace(/^https?:\/\//, '').replace(/\/.*$/, '').trim();
-      return `if (shExpMatch(host, "${cleanHost}") || shExpMatch(host, "*.${cleanHost}")) { return "PROXY 127.0.0.1:${port}"; }`;
+      return `if (host === "${cleanHost}") { return "PROXY 127.0.0.1:${port}"; }`;
     }).join('\n      ');
 
     return `

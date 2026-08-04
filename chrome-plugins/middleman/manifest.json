@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Middleman - Spoof Host IPs (like a boss)",
-  "version": "1.2.0",
+  "version": "1.0",
   "description": "Exactly what it says on the tin.  Spoof Host IPs (like a boss)",
   "permissions": [
     "proxy",
